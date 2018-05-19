@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>run.html</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+  
+ 
+ <style type="text/css">
+ 	
+	*{
+		margin: 0;
+		//padding: 0;
+	}
+	
+	canvas{
+		display:block;
+		background-color:white;	
+	} 	 
+		
+ </style>
+   
+  </head>
+
+  <body >
+
+<canvas id="canva">mycanvas</canvas>
+
+<script type="text/javascript">
+var can=document.getElementById("canva");
+var pen=can.getContext("2d");//
+	var w=can.width=window.innerWidth;
+	var h=can.height=window.innerHeight;
+	//set windows
+	window.onresize=function (){
+		 w=can.width=window.innerWidth;
+		 h=can.height=window.innerHeight;
+	}
+	
+	//made run
+	function run(){};
+		
+		run.prototype={
+
+			//chu shi hua
+			init :function(){
+			this.x= rand(0,w);
+			this.y=0;
+			this.vy=rand(5, 8);
+			this.high=rand(0.8*h,0.9*h);
+			
+			this.r=1;
+			this.vr=1;
+				
+			this.a=1;
+			this.va=0.90;
+			},
+			//draw pipcture
+			
+			draw:function(){
+				
+				if(this.y  > this.high){					
+					pen.beginPath();
+					pen.strokeStyle="rgba(0,255,255"+this.a+")";
+				 	pen.arc(this.x,this.y, this.r, 0, Math.PI*2);		
+					pen.stroke();
+ 					 	
+				 }else{
+								
+					pen.fillStyle="rgb(0,255,255)";	
+					pen.fillRect(this.x, this.y, 3,6);
+					}
+										
+			},
+		
+		//move
+
+			
+			//reset x and y
+			reset :function(){
+								
+								if(this.y<this.high){							
+									this.y +=this.vy;	
+								}else{
+										
+										if(this.a>0.1){
+										this.r +=this.vr;
+													if(this.r>50){
+													this.a*=this.va;
+													}
+													
+													}else{
+				
+															this.init();
+															//alert(this.y);																										
+													
+														}
+												
+										}
+										
+							},
+			
+			
+			
+			
+			move:function(){
+				this.reset();
+				this.draw();
+			},
+			
+			
+		
+			
+		}	
+
+/* 	
+	var e=new run();
+		e.init();
+		e.draw();
+		setTimeout(e.move(), 200);
+	
+ */	
+	
+	
+	
+	
+	
+	
+	 
+	
+	
+	var rianArray=[];
+	function creatrain(){ 
+		var	r=new run();	
+			r.init();
+			r.draw();
+			rianArray.push(r);
+			
+	};
+	
+	for(var i=0;i<20;i++){
+		setTimeout(creatrain, 200*i);
+	};	
+
+
+
+		function moverain(){
+					pen.fillStyle="rgba(0,0,0,0.1)";
+					pen.fillRect(0, 0, w, h);
+					
+				for(var j=0;j<rianArray.length;j++){	
+				
+					rianArray[j].move();
+						
+					}		
+		
+		}
+	
+		setInterval(moverain, 20);
+ 	
+
+			
+			
+	/* 
+	var a=new run();
+		console.log(a)
+		a.init();	
+	//setInterval(a.move, 30);
+		
+	 function fun(){
+		r.move();	 	
+	 	a.move();
+	
+	 }
+		
+	//setTimeout(fun, 30);
+	
+	
+	
+	setInterval(fun, 30);
+	
+ */	
+	
+	function rand(min,max){
+		return Math.random()*(max-min)+min;
+	}	
+	
+</script>
+ 
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//tian chong ju xing
+	//pen.fillStyle="red";
+//	pen.fillRect(100, 100, 200, 200);
+	
+	//hua yuan stroke chu bi
+		//juxing dong
+	//var y=0;
+	/* setInterval(function() {
+	++y;
+	pen.clearRect(0,0,w,h);
+	pen.fillRect(100, y, 200, 200);
+		
+	}, 30);
+
+ */
+	
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
